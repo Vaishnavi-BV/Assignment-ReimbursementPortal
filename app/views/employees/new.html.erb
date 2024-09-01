@@ -1,0 +1,6 @@
+<div class="d-flex align-items-center justify-content-center m-5">
+  <div>
+    <h1 style="padding-bottom: 20px">New Employee</h1>
+    <%= render partial: 'form', locals: {user: @employee, url: employees_path, method_name: :post} %>
+  </div>
+</div>

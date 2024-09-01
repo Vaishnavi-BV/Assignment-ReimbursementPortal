@@ -1,0 +1,21 @@
+<%= form_with(model: department, local: true) do |form| %>
+  <div class="row g-3 d-flex align-items-center justify-content-center ">
+    <div class="col-md-12">
+      <%= form.label :name, class: 'form-label'%><span style="color: red">*</span>
+      <%= form.text_field :name, class: 'form-control' %>
+      <% department.errors.full_messages_for(:name).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-12">
+      <%= form.label :description, class: 'form-label' %>
+      <%= form.text_field :description, class: 'form-control' %>
+    </div>
+
+    <div class="col-md-12">
+      <center><%= form.submit class: 'btn btn-primary me-3' %>
+      <%= link_to 'Cancel', departments_path, class: 'btn btn-primary' %></center>
+    </div>
+  </div>
+<% end %>

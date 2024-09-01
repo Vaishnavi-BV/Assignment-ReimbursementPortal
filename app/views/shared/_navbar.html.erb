@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-light p-lg-2" style="background-color: #e3f2fd;">
+  <div class="container-fluid">
+    <div class="d-flex" style="width: 80%">
+      <%= link_to 'Reimbursement Portal' , root_path, class: 'navbar-brand', style: 'font-weight:bold; font-size:30px;padding-right: 15px' %>
+      <% if user_signed_in? && current_user.admin_permission? %>
+        <ul class="navbar-nav" style="align-items: center; font-weight: 300">
+          <li class="nav-item">
+            <%= link_to 'Departments', departments_path, class: 'navbar-brand'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Employees', employees_path ,class: 'navbar-brand'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Bills', bills_path ,class: 'navbar-brand'%>
+          </li>
+        </ul>
+      <% elsif user_signed_in? && current_user.employee_permission? %>
+        <ul class="navbar-nav" style="align-items: center; font-weight: 300">
+          <li class="nav-item">
+            <%= link_to 'Bills', bills_path, class: 'navbar-brand'%>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+      <div class="float-end me-3">
+        <ul class="navbar-nav">
+          <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to 'Logout', destroy_user_session_path, method: :delete ,class: 'btn btn-outline-primary'%>
+          </li>
+          <% else %>
+          <li class="nav-item me-3">
+            <%= link_to 'Sign In', new_user_session_path ,class: 'btn btn-outline-success'%>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Up', new_user_registration_path ,class: 'btn btn-outline-success'%>
+          </li>
+          <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

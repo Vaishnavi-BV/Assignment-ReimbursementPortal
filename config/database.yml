@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: bill_reimbursement_development
+  username: postgres
+  password: postgres
+
+test:
+  <<: *default
+  database: bill_reimbursement_testing
+  username: postgres
+  password: postgres
+
+production:
+  <<: *default
+  database: bill_reimbursement_production
+  username: postgres
+  password: postgres

@@ -1,0 +1,28 @@
+<%= form_with(model: bill, local: true) do |form| %>
+  <div class="row g-3 d-flex align-items-center justify-content-center ">
+
+    <div class="col-md-6">
+      <%= form.label :type, class: 'form-label'%><span style="color: red">*</span>
+      <%= form.select :bill_type, Bill.bill_types { |k, v| v }, { prompt: 'Select Type' }, { class: 'form-control' }%>
+      <% bill.errors.full_messages_for(:bill).each do |message| %>
+        <p style="color: red"><%= message %></p>
+    <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= form.label :amount, class: 'form-label'%><span style="color: red">*</span>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">INR</span>
+        <%= form.text_field :amount, class: 'form-control' %>
+      </div>
+      <% bill.errors.full_messages_for(:amount).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-12">
+      <center><%= form.submit class: 'btn btn-primary me-3' %>
+        <%= link_to 'Cancel', bills_path, class: 'btn btn-primary' %></center>
+    </div>
+  </div>
+<% end %>

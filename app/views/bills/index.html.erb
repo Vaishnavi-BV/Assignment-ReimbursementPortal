@@ -1,0 +1,58 @@
+<div class="m-5">
+  <h1 style="font-weight: 400; margin-bottom: 20px">Bills
+    <% if current_user.employee? %>
+      <span class="float-end" style="margin-right: 30px">
+        <%= link_to 'New Bill', new_bill_path, class: 'btn btn-outline-primary ' %>
+      </span>
+    <% end %>
+  </h1>
+  <div class="d-grid align-items-center">
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <strong>Total Submitted: </strong><%= @submitted_count %>
+      </div>
+      <div class="col-md-6">
+        <strong>Total Approved: </strong><%= @approved_count %>
+      </div>
+    </div>
+    <table class="table" style="width: 95%">
+    <thead class="table-info" style="padding-left: 15px">
+    <tr>
+      <th>Type</th>
+      <th>Amount</th>
+      <% if current_user.admin? %>
+        <th>Date of Submission</th>
+      <% end %>
+      <th>Submitted by</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @bills.each do |bill| %>
+      <tr>
+        <td><%= bill.bill_type %></td>
+        <td><%= bill.amount %></td>
+        <td><%= bill.submission_date.strftime('%m-%d-%Y') %></td>
+        <% if current_user.admin? %>
+          <td><%= bill.user.full_name %></td>
+        <% end %>
+        <td><%= bill.status.capitalize %></td>
+        <td>
+          <div class="d-flex">
+            <% if current_user.employee_permission? %>
+              <%= link_to 'Edit', edit_bill_path(bill), class: 'btn btn-secondary', style: 'margin-right: 10px' %>
+              <%= button_to 'Destroy', bill, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+            <% elsif current_user.admin_permission? %>
+              <%= button_to 'Approve', approve_bill_path(bill), method: :patch, class: 'btn btn-outline-success', style: 'margin-right: 10px' %>
+              <%= button_to 'Decline', decline_bill_path(bill), method: :patch, class: 'btn btn-outline-danger' %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  </div>
+  </div>
+</div>

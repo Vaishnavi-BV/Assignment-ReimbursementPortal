@@ -1,0 +1,27 @@
+<div class="m-5">
+<h1 style="font-weight: 400; margin-bottom: 20px">Departments
+  <span class="float-end" style="margin-right: 30px">
+    <%= link_to 'New Department', new_department_path, class: 'btn btn-outline-primary' %>
+  </span>
+  </h1>
+<div class="d-flex justify-content-center align-items-center">
+  <table class="table" style="width: 60%">
+  <thead class="table-info" style="padding-left: 15px">
+  <tr>
+    <th>Name</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @departments.each do |department| %>
+    <tr>
+      <td><%= department.name %></td>
+      <td>
+        <%= link_to 'Edit', edit_department_path(department), class: 'btn btn-outline-secondary' %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+</div>

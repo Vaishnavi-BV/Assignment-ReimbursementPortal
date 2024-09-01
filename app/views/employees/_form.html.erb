@@ -1,0 +1,73 @@
+<%= form_with(model: user, url: url, method: method_name, local: true) do |f| %>
+  <div class="row g-3 d-flex align-items-center justify-content-center ">
+    <div class="col-md-6">
+      <%= f.label :first_name, class: 'form-label' %><span style="color: red">*</span><br />
+      <%= f.text_field :first_name, class: 'form-control' %>
+      <% user.errors.full_messages_for(:first_name).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :last_name, class: 'form-label' %><br />
+      <%= f.text_field :last_name, class: 'form-control' %>
+      <% user.errors.full_messages_for(:last_name).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :email, class: 'form-label' %><span style="color: red">*</span><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+      <% user.errors.full_messages_for(:email).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :password, class: 'form-label' %><span style="color: red">*</span>
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+      <% user.errors.full_messages_for(:password).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :password_confirmation, class: 'form-label' %><span style="color: red">*</span><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+      <% user.errors.full_messages_for(:password_confirmation).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :designation, class: 'form-label' %><br />
+      <%= f.text_field :designation, class: 'form-control' %>
+      <% user.errors.full_messages_for(:designation).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :department, class: 'form-label' %><span style="color: red">*</span><br />
+      <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: 'Select Department' }, { class: 'form-control' }%>
+      <% user.errors.full_messages_for(:department).each do |message| %>
+        <p style="color: red"><%= message %></p>
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= f.label :role, class: 'form-label' %><span style="color: red">*</span><br />
+      <%= f.radio_button :role, 'admin', checked: true %> Admin
+      <%= f.radio_button :role, 'employee', checked: true %> Employee
+    </div>
+
+    <div class="col-md-12">
+      <center><%= f.submit class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', employees_path, class: 'btn btn-primary' %></center>
+    </div>
+  </div>
+<% end %>
